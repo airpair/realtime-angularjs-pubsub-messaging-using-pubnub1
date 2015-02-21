@@ -19,7 +19,7 @@ Maybe you want to build a live blogging platform, which in that case you'll have
 ## Step 1: Get Your Includes On
 To get started, we'll need to set up the script includes for PubNub and Angular, as well as an optional stylesheet for Bootstrap styles.
 
-```html
+```markup
 <!doctype html>
 <html>
 <head>
@@ -46,29 +46,29 @@ Once these are all set, you're good to start coding!
 ## Step 2: Set Up Your HTML Layout and Dynamic Content
 
 Let's get the HTML set up:
-```html
+```markup
 <div class="container" ng-app="PubNubAngularApp" ng-controller="ChatCtrl">
 ```
 AngularJS needs to be able to find your app. To make that happen, we add an 'ng-app' attribute to the div element we want to Angular-ize. In addition, we need to specify an AngularJS controller function that takes care of binding all the logic we need. If you look in the script tag at the end of the page, you'll see where we set up the ChatCtrl function.
-```html
+```markup
 <h4>Online Users</h4>
 <ul>
   <li ng-repeat="user in users">{{user}}</li>
 </ul>
 ```
 Wow, how awesome is that? We can create a dynamic list of users simply by using a ```ul``` element and an ```li``` element that's set up to iterate over all of the items in ```$scope.users```. For the purposes of this demo, each user object is a simple string.
-```html
+```markup
 <h4>Chat History {{messages.length}}</h4>
 ```
 Just a header. Nothing to see here. One thing that's kind of nifty is that we substitute in the length attribute from the ```$scope.messages array```.
-```html
+```markup
 <form ng-submit='publish()'>
   <input type="text" ng-model='newMessage' />
   <input type="submit" value="Send" />
 </form>
 ```
 This is the first interactive feature - a simple text box that binds its content to ```$scope.newMessage```, and a submit button for the form. The form submit function is bound to the ```$scope.publish function```. What does it do? We'll find out soon!
-```html
+```markup
 <div class="well">
 <ul><li ng-repeat="message in messages">{{message}}</li></ul>
 </div>
@@ -163,8 +163,12 @@ If you'd like to bring in the user list, just add the call above - it'll fire of
     count: 500
   });
 ```  
-If you'd like to bring in message history, just add the call above - it'll fire all of the message events, which will be handled by the event handler we registered above using ```$rootScope.$on(PubNub.ngMsgEv($scope.channel) ...```.
+If you'd like to bring in message history, just add the call above - it'll fire all of the message events, which will be handled by the event handler we registered above using 
+
 ```javascript
+<script>
+$rootScope.$on(PubNub.ngMsgEv($scope.channel) {
+...
 });
 </script>
 ```
