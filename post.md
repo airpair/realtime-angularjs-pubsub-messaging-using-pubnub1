@@ -1,22 +1,22 @@
+## 1. Introduction
+
 Welcome to AngularJS Realtime Messaging 101, where we'll show you how to implement publish/subscribe functionality with AngularJS and PubNub. This is a powerful and easy way to build realtime web, mobile, and Internet of Things applications like chat, streaming stock quotes, or even triggering embedded device actions.
 
-## Introduction
+## 2. Tutorial Overview
 
-### Tutorial Overview
-
-We thought it would be both cool and efficient to write a tutorual for a small sample application to showcase and better understand simple publish/subscribe functionality. So good news is, we're going to do it all with 99 lines of code, less than 60 of which is JavaScript. If you're used to coding your JavaScript in CoffeeScript, you can expect that to easily get cut in half.
+We thought it would be both cool and efficient to write a tutorial for a small sample application to showcase and better understand simple publish/subscribe functionality. So the good news is, we're going to do it all with 99 lines of code, less than 60 of which is JavaScript. If you're used to coding your JavaScript in CoffeeScript, you can expect that to easily get cut in half.
 
 The source for the example lives here: https://github.com/pubnub/angular-js/blob/master/app/mini.html
 
-In this tutorial, we'll walk through the HTML line by line, and show you how simple publish/subscribe is. After we're done, feel free to spruce it up with CSS, or make slight tweeks to the code. 
+In this tutorial, we'll walk you through the HTML line by line, and show you how simple publish/subscribe is. After we're done, feel free to spruce it up with CSS, or make slight tweeks to the code. 
 
-Maybe you want to build a live blogging platform, which in that case you'll have one publisher and as many subscribers as you want, and updates are pushed in realtime to those subscribers. 
+Maybe you want to build a live blogging platform, in which case you'll have one publisher and as many subscribers as you want, and updates are pushed in realtime to those subscribers. 
 
-### What is PubNub?
+## 3. What is PubNub?
 
 [PubNub](http://www.pubnub.com) is a secure global Data Stream Network (DSN) and easy to use API that enables developers to connect, scale, and manage realtime applications and IoT devices. With over 70 SDKs for every platform, 250ms worldwide data transfer times, and scalability for hundreds of millions of devices, PubNub’s unique infrastructure gives you the ability to easily connect and operate world-class realtime applications and IoT devices. 
 
-## Step 1: Get Your Includes On
+###3.1 Step 1: Get Your Includes On
 To get started, we'll need to set up the script includes for PubNub and Angular, as well as an optional stylesheet for Bootstrap styles.
 
 ```html
@@ -32,7 +32,7 @@ To get started, we'll need to set up the script includes for PubNub and Angular,
 </head>
 <body>
 ```
-### What does all this stuff do?
+####3.1.1 What does all this stuff do?
 
 - pubnub.min.js : the main PubNub communication library for JavaScript
 - pubnub-crypto.min.js : encryption features in case you need to enable them someday
@@ -43,13 +43,13 @@ To get started, we'll need to set up the script includes for PubNub and Angular,
 
 Once these are all set, you're good to start coding!
 
-## Step 2: Set Up Your HTML Layout and Dynamic Content
+###3.2 Step 2: Set Up Your HTML Layout and Dynamic Content
 
 Let's get the HTML set up:
 ```html
 <div class="container" ng-app="PubNubAngularApp" ng-controller="ChatCtrl">
 ```
-AngularJS needs to be able to find your app. To make that happen, we add an 'ng-app' attribute to the div element we want to Angular-ize. In addition, we need to specify an AngularJS controller function that takes care of binding all the logic we need. If you look in the script tag at the end of the page, you'll see where we set up the ChatCtrl function.
+AngularJS needs to be able to find your app. To make that happen, we need to add an 'ng-app' attribute to the div element we want to Angular-ize. In addition, we need to specify an AngularJS controller function that takes care of binding all the logic we need. If you look in the script tag at the end of the page, you'll see where we set up the ChatCtrl function.
 ```html
 <h4>Online Users</h4>
 <ul>
@@ -67,7 +67,7 @@ Just a header. Nothing to see here. One thing that's kind of nifty is that we su
   <input type="submit" value="Send" />
 </form>
 ```
-This is the first interactive feature - a simple text box that binds its content to ```$scope.newMessage```, and a submit button for the form. The form submit function is bound to the ```$scope.publish function```. What does it do? We'll find out soon!
+This is the first interactive feature - a simple text box that binds it's content to ```$scope.newMessage```, and a submit button for the form. The form submit function is bound to the ```$scope.publish function```. What does it do? We'll find out soon!
 ```html
 <div class="well">
 <ul><li ng-repeat="message in messages">{{message}}</li></ul>
@@ -77,7 +77,7 @@ Now that you're already an AngularJS and PubNub expert, you can see that this is
 
 Not too shabby! But you may ask, how does it all work? Let's check out the JavaScript!
 
-## Step 3: JavaScript - Where the Magic Happens
+### 3.3 Step 3: JavaScript - Where the Magic Happens
 Let's walk through the JavaScript and see how it's all put together.
 ```javascript
 <script>
@@ -133,9 +133,9 @@ Here we bind an event handler to listen for message events. The PubNub AngularJS
 
 Since it's not easy for Angular to detect an ```Array.push() call```, we wrap that little ditty in a ```$scope.apply``` call to make sure that Angular updates the view properly.
 
-## Bells and Whistles
+##4. Bells and Whistles
 
-### Presence Events: Realtime Online/Offline User List
+###4.1 Presence Events: Realtime Online/Offline User List
 
 ```javascript
   // Register for presence events (optional)
@@ -155,7 +155,7 @@ If you'd like your app to display contents of the dynamic user list, we try to k
 ```  
 If you'd like to bring in the user list, just add the call above - it'll fire off a presence event, which will be handled by the presence handler we registered above using ```$rootScope.$on(PubNub.ngPrsEv($scope.channel) ...```.
 
-### Message History
+### 4.2 Message History
 ```javascript
   // Populate message history (optional)
   PubNub.ngHistory({
@@ -169,7 +169,7 @@ If you'd like to bring in message history, just add the call above - it'll fire 
 </script>
 ```
 
-## Conclusion
+##5. Conclusion
 
 PubNub is an easy and blazing fast way to build realtime messaging into your application. Combined with AngularJS, we can now build single-page web and mobile applications that communicate bidirectionally, without worrying about backend infrastructure.
 
